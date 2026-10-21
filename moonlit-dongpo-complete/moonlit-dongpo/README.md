@@ -1,50 +1,49 @@
-# 月下东坡 · Gemini Free-Tier Edition
+# 月下东坡 (Moonlit Dongpo) 🌙
 
-A jade-green and gold Chinese poetry chatbot focused on 苏轼《水调歌头》.
+An AI chatbot inspired by **Su Shi (苏轼)** and his poem **《水调歌头》**. Ask questions in Chinese or English to learn about the poem, its meaning, and Su Shi's life.
 
-## Windows quick start
+## 🌐 Just want to use the chatbot?
 
-1. Install Go 1.23 or newer.
-2. Extract the ZIP and open the inner `moonlit-dongpo` folder in VS Code.
-3. Copy `.env.example` to `.env` in the same folder as `main.go`.
-4. Create a Gemini API key in Google AI Studio: https://aistudio.google.com/apikey
-5. In `.env`, replace `PASTE_YOUR_GEMINI_KEY_HERE` with your key.
-6. Double-click `start-windows.bat`, or run `go run .` in that folder.
-7. Open http://localhost:8081 in a browser.
+Open the website link shared by the project owner, type your question in the chat box, and press **Send**. **No installation or API key is needed.**
 
-**Do not put the key in web/ files or share/commit your `.env` file.**
+**Website:** _[Add the public website link here after deployment]_
 
-### VS Code PowerShell commands
+## 💻 Want to run it on your own computer?
 
-```powershell
-Copy-Item .env.example .env
-notepad .env
-# After saving your key:
-go run .
-```
+1. **Get the project:** On GitHub, click **Code → Download ZIP**, then extract the ZIP. Open the folder containing `main.go` in VS Code.
+2. **Install Go:** Download and install Go from [go.dev/dl](https://go.dev/dl/) if you do not already have it.
+3. **Get a free-tier Gemini API key (if eligible):** Visit [Google AI Studio](https://aistudio.google.com/apikey), sign in, and create an API key.
+4. **Add your key:** Open the `.env` file already prepared in the project. Replace `YOUR_GEMINI_API_KEY` with your own key. Keep these settings:
 
-### Configuration
+   ```env
+   GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+   GEMINI_MODEL=gemini-3.5-flash-lite
+   PORT=8081
+   ```
 
-- `GEMINI_API_KEY`: required for AI chat
-- `GEMINI_MODEL`: defaults to `gemini-2.5-flash-lite`
-- `PORT`: defaults to `8080`, but `.env.example` sets `8081`
+   Save the file. `.env.example` is only a sample; you do not need to edit it. If `.env` is missing from a GitHub download, copy `.env.example` and rename the copy to `.env`.
+5. **Start the chatbot:** In VS Code, open **Terminal → New Terminal** in the project folder and type:
 
-The website and API run in the same Go process. `POST /api/chat` retains the original request/response contract, session pacing, validation, and recent-message history. The browser never sees the API key.
+   ```bash
+   go run .
+   ```
 
-### Troubleshooting
+6. **Open the website:** Visit **http://localhost:8081** in your browser. Keep the terminal open while using the chatbot.
 
-- **Website works, AI doesn't:** inspect the server terminal for `Gemini request failed:`.
-- **HTTP 400:** bad request/model configuration.
-- **HTTP 401/403:** invalid or unauthorized key/project.
-- **HTTP 404:** model name not available to your project; check available models in AI Studio.
-- **HTTP 429:** free-tier rate limit or quota reached.
-- **HTTP 503:** service unavailable.
-- **Address already in use:** stop the other Go server or set another `PORT` in `.env`.
+## 💬 How to use
 
-### Hosting
+Try asking: **“苏轼为什么写《水调歌头》？”** The AI will answer in the chat box. You can ask follow-up questions too.
 
-On Render, build with `go build -o app .` and start with `./app`.
-Set `GEMINI_API_KEY` as a secret environment variable on Render, and optionally `GEMINI_MODEL`.
-The host sets `PORT`. Do not upload `.env` to GitHub.
+## ❓ Common problems
 
-**Free-tier limitations:** Gemini API free-tier availability, usage limits, and eligible models may change. Free-tier inputs and outputs may be used to improve Google's products. Avoid submitting personal or sensitive information. Hosting a publicly accessible site may require a paid hosting plan even if model requests remain within free-tier limits.
+- **Website does not open:** Check that `go run .` is still running and that you opened `http://localhost:8081`.
+- **AI says it is busy:** Check your API key in `.env`, restart the server, and look for errors in the VS Code terminal. Free-tier API usage limits may apply.
+- **Port 8081 is already in use:** Close any older running copy of the chatbot before starting it again.
+
+## 🔒 Important
+
+**Never share or upload your `.env` file or Gemini API key to GitHub.** Only share `.env.example` as a sample. Visitors using the public website do not need an API key.
+
+---
+
+Built with **Go**, **Google Gemini**, **HTML**, **CSS**, and **JavaScript**.
